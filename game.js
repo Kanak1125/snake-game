@@ -17,9 +17,9 @@ let snake = [{x: 250, y: 250},
 main()
 
 function main() {
-    drawBoard()
+    //drawBoard()
     moveSnake()
-    drawSnake()
+    //drawSnake()
 }
 
 // to draw snake board using canvas
@@ -33,7 +33,6 @@ function drawBoard() {
 // draw the snake on the canvas
 function drawSnake() {
     snake.forEach(drawSnakePart)
-    food()
 }
 
 //function to draw snake part
@@ -116,11 +115,14 @@ function gameOver(head) {
 
 // generate random food...
 function food() {
+    const generate_food_random = Math.floor(Math.random() * gameCanvas.width / 10 ) * 5
+    if(generate_food_random % 10 === 0) return
+    console.log(generate_food_random)
     canvasCtxt.fillStyle = foodColor
-    //canvasCtxt.fill()
-    //canvasCtxt.beginPath()
-    //canvasCtxt.arc(5, 5, 5, 0, 2 * Math.PI)
-    canvasCtxt.fillRect(0, 0, 10, 10)
+    canvasCtxt.fill()
+    canvasCtxt.beginPath()
+    canvasCtxt.arc(105, 110, 5, 0, 2 * Math.PI)
+    //canvasCtxt.fillRect(0, 0, 5, 5)
 }
 
 // update score...
