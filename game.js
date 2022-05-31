@@ -3,7 +3,7 @@ const boardBorder = "white"
 const snakeColor = "lightgreen"
 const snake_HeadColor = "lawngreen"
 const snakeBorder = "green"
-const foodColor = "red"
+const foodColor = "lightcoral"
 const gameCanvas = document.querySelector('#canvas')
 const canvasCtxt = gameCanvas.getContext("2d")
 let dx = 10     // horizontal velocity
@@ -14,12 +14,18 @@ let snake = [{x: 250, y: 250},
              {x: 220, y: 250},
              {x: 210, y: 250}
             ]    // the co-ordinates for snake body...
+let food_x
+let food_y
+
+let score = 0
+const currentScore = document.getElementById('score')
 main()
+generateFood()
 
 function main() {
-    //drawBoard()
+    drawBoard()
     moveSnake()
-    //drawSnake()
+    drawSnake()
 }
 
 // to draw snake board using canvas
@@ -93,9 +99,18 @@ document.addEventListener('keydown', (event) => {
 function moveSnake() {
     drawBoard()
     const head = {x: snake[0].x + dx, y: snake[0].y + dy}
+   
     snake.unshift(head);
-    snake.pop();
+
+    const food_has_eaten = (head.x == food_x && head.y == food_y)
+    if(food_has_eaten) {
+        score += 10
+        generateFood()
+        currentScore.textContent = score
+    }
+    else snake.pop();
     drawSnake()
+    drawFood()
     
     setTimeout(moveSnake, 100)      // calls moveSnake again
     gameOver(head)
@@ -104,6 +119,7 @@ function moveSnake() {
 
 // conditions to end the game...
 function gameOver(head) {
+    changeDirection = false
     for(let i = 4; i < snake.length; i++) {
         if(head.x === snake[i].x && head.y === snake[i].y)  alert("GameOver body touched")  //if any of the co-ordinates other than the co-ordinate of heads matches the co-ordinates of snake body part === "GameOver"
     }
@@ -114,22 +130,40 @@ function gameOver(head) {
 }
 
 // generate random food...
-function food() {
-    const generate_food_random = Math.floor(Math.random() * gameCanvas.width / 10 ) * 5
-    if(generate_food_random % 5 === 0 && generate_food_random % 10 != 0) {
-        console.log(generate_food_random)
-    }
-    else {
-        console.log("0 at last...")
-    }
-    canvasCtxt.fillStyle = foodColor
-    canvasCtxt.fill()
-    canvasCtxt.beginPath()
-    canvasCtxt.arc(105, 110, 5, 0, 2 * Math.PI)
-    //canvasCtxt.fillRect(0, 0, 5, 5)
+function randomFood(min, max) {
+    return Math.floor((Math.random() * (max - min) + min) / 10) * 10
+    // if(generate_food_random % 5 === 0 && generate_food_random % 10 != 0) {
+    //     console.log(generate_food_random)
+    // }
+    // else {
+    //     console.log("0 at last...")
+    // }
 }
-food()
-// update score...
-function score() {
 
+// get the food co-ordinates...
+function generateFood() {
+     food_x = randomFood(0, gameCanvas.width - 10);
+     food_y = randomFood(0, gameCanvas.height - 10);
+     console.log(food_x, food_y)
+    
+     // if the new food location is where the snake is currently at then generate new location/co-ordinates...
+     snake.forEach(function has_food_eaten(body_part) {
+        const food_eaten = (body_part.x == food_x && body_part.y == food_y)
+        if(food_eaten === true) {
+            generateFood()
+            console.log("food eaten")
+        }
+     })
+}
+
+// draw food...
+function drawFood() {
+    canvasCtxt.fillStyle = foodColor
+    canvasCtxt.fillRect(food_x, food_y, 10, 10)
+    canvasCtxt.strokeStyle = "black";
+    canvasCtxt.strokeRect(food_x, food_y, 10, 10)
+    // canvasCtxt.fill()
+    // canvasCtxt.beginPath()
+    // canvasCtxt.arc(110, 120, 5, 0, 2 * Math.PI)
+    //canvasCtxt.fillRect(0, 0, 5, 5)
 }
