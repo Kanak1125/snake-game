@@ -116,15 +116,19 @@ function gameOver(head) {
 // generate random food...
 function food() {
     const generate_food_random = Math.floor(Math.random() * gameCanvas.width / 10 ) * 5
-    if(generate_food_random % 10 === 0) return
-    console.log(generate_food_random)
+    if(generate_food_random % 5 === 0 && generate_food_random % 10 != 0) {
+        console.log(generate_food_random)
+    }
+    else {
+        console.log("0 at last...")
+    }
     canvasCtxt.fillStyle = foodColor
     canvasCtxt.fill()
     canvasCtxt.beginPath()
     canvasCtxt.arc(105, 110, 5, 0, 2 * Math.PI)
     //canvasCtxt.fillRect(0, 0, 5, 5)
 }
-
+food()
 // update score...
 function score() {
 
