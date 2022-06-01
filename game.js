@@ -1,3 +1,4 @@
+const activate_modal = document.querySelector('.gameOver')
 const boardColor = "#111"
 const boardBorder = "white"
 const snakeColor = "lightgreen"
@@ -14,8 +15,8 @@ let snake = [{x: 250, y: 250},
              {x: 220, y: 250},
              {x: 210, y: 250}
             ]    // the co-ordinates for snake body...
-let food_x
-let food_y
+let food_x;
+let food_y;
 
 let score = 0
 let best_score = JSON.parse(localStorage.getItem("all_time_best"))
@@ -52,6 +53,7 @@ function drawSnakePart(snakePart) {
     canvasCtxt.strokeStyle = snakeBorder    //border-color assigned to the body parts of a snake
     canvasCtxt.strokeRect(snakePart.x, snakePart.y, 10, 10)     //draws a border around the snake body part
 }
+
 
 //event listener
 document.addEventListener('keydown', (event) => {
@@ -101,6 +103,11 @@ document.addEventListener('keydown', (event) => {
 // moveVertical()
 
 function moveSnake() {
+    if(score > best_score) {
+        best_score = score
+        localStorage.setItem("all_time_best", JSON.stringify(best_score))
+    }
+    
     drawBoard()
     const head = {x: snake[0].x + dx, y: snake[0].y + dy}
    
@@ -116,46 +123,34 @@ function moveSnake() {
     drawSnake()
     drawFood()
     
-    setTimeout(moveSnake, 100)      // calls moveSnake again
+    setTimeout(moveSnake, 45)      // calls moveSnake again
     gameOver(head)
 }
 
 
 // conditions to end the game...
 function gameOver(head) {
-    if(score > best_score) {
-        best_score = score
-        localStorage.setItem("all_time_best", JSON.stringify(best_score))
-    }
-    //changeDirection = false
     for(let i = 4; i < snake.length; i++) {
         if(head.x === snake[i].x && head.y === snake[i].y){
-            alert("GameOver body touched") 
-            location.reload() 
+            activate_modal.classList.add('active') 
+            snake = []
         }//if any of the co-ordinates other than the co-ordinate of heads matches the co-ordinates of snake body part === "GameOver"
     }
     if(head.x === -10 || head.y === -10 || head.x === gameCanvas.width || head.y === gameCanvas.height) {   // here -10 is co-ordinates of head w.r.to its axis i.e. less than 0 (x, y) ---> (top, left)
-        alert("Gameover")
-        location.reload()
+        activate_modal.classList.add('active')
+        snake = []
     }  
 }
 
 // generate random food...
 function randomFood(min, max) {
     return Math.floor((Math.random() * (max - min) + min) / 10) * 10
-    // if(generate_food_random % 5 === 0 && generate_food_random % 10 != 0) {
-    //     console.log(generate_food_random)
-    // }
-    // else {
-    //     console.log("0 at last...")
-    // }
 }
 
 // get the food co-ordinates...
 function generateFood() {
      food_x = randomFood(0, gameCanvas.width - 10);
      food_y = randomFood(0, gameCanvas.height - 10);
-     console.log(food_x, food_y)
     
      // if the new food location is where the snake is currently at then generate new location/co-ordinates...
      snake.forEach(function has_food_eaten(body_part) {
@@ -173,8 +168,4 @@ function drawFood() {
     canvasCtxt.fillRect(food_x, food_y, 10, 10)
     canvasCtxt.strokeStyle = "black";
     canvasCtxt.strokeRect(food_x, food_y, 10, 10)
-    // canvasCtxt.fill()
-    // canvasCtxt.beginPath()
-    // canvasCtxt.arc(110, 120, 5, 0, 2 * Math.PI)
-    //canvasCtxt.fillRect(0, 0, 5, 5)
 }

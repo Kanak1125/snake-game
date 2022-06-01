@@ -47,10 +47,60 @@ body {
 /* .game_canvas {
     border: 1px solid white;
 } */
+
 .snake {
     position: relative;
     width: 10px;
     height: 10px;
     background: lightgreen;
     transition: all 100ms linear;
+}
+.gameOver {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+.active {
+    display: flex;
+    transition: all 300ms linear;
+}
+.gameOver .modal {
+    width: 35vw;
+    height: 60vh;
+    background: black;
+    box-shadow: 0px 0px 5px white;
+    border-radius: 5px;
+    color: lightgreen;
+    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.btns {
+    display: flex;
+    gap: 5rem;
+}
+.btn {
+    font-size: 2.5rem;
+    background: none;
+    color: whitesmoke;
+    outline: none !important;
+    border: none;
+    transition: all 300ms linear;
+    cursor: pointer;
+}
+.menu:hover {
+    color: lightcoral;
+}
+.replay {
+    font-weight: bold;
+    font-size: 2.75rem;
+}
+.replay:hover {
+    color: lightgreen;
 }

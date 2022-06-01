@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="style.css">
     <!-- <script src="app.js" defer></script> -->
     <script src="game.js" defer></script>
+    <script src="load.js" defer></script>
 </head>
 <body>
-    <div class="logo">Sn<span>a</span>ke</div>
+    <div class="logo">sn<span>A</span>ke</div>
     <div class="scores"> 
         <p>Score: <span id="score">0</span></p> 
         <p>Best: <span id="best-score">0</span></p> 
@@ -20,5 +21,14 @@
         <div class="apple"></div>
     </div> -->
     <canvas id="canvas" class="game_canvas" width="500px" height="500px"></canvas>
+    <div class="gameOver">
+        <div class="modal">
+            <p> Wanna play again? </p>
+            <div class="btns">
+                <button class="btn menu">&#10006;</button>
+                <button class="btn replay">&#10227;</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
