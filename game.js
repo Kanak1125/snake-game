@@ -18,7 +18,9 @@ let food_x
 let food_y
 
 let score = 0
+let best_score = 0
 const currentScore = document.getElementById('score')
+const bestScore = document.getElementById('best-score')
 main()
 generateFood()
 
@@ -119,11 +121,16 @@ function moveSnake() {
 
 // conditions to end the game...
 function gameOver(head) {
-    changeDirection = false
+    best_Score()
+    //changeDirection = false
     for(let i = 4; i < snake.length; i++) {
-        if(head.x === snake[i].x && head.y === snake[i].y)  alert("GameOver body touched")  //if any of the co-ordinates other than the co-ordinate of heads matches the co-ordinates of snake body part === "GameOver"
+        if(head.x === snake[i].x && head.y === snake[i].y){
+            bestScore.textContent = best_score
+            alert("GameOver body touched")  
+        }//if any of the co-ordinates other than the co-ordinate of heads matches the co-ordinates of snake body part === "GameOver"
     }
     if(head.x === -10 || head.y === -10 || head.x === gameCanvas.width || head.y === gameCanvas.height) {   // here -10 is co-ordinates of head w.r.to its axis i.e. less than 0 (x, y) ---> (top, left)
+        bestScore.textContent = best_score
         alert("Gameover")
         location.reload()
     }  
@@ -166,4 +173,11 @@ function drawFood() {
     // canvasCtxt.beginPath()
     // canvasCtxt.arc(110, 120, 5, 0, 2 * Math.PI)
     //canvasCtxt.fillRect(0, 0, 5, 5)
+}
+
+//store the best score in local storage and display...
+function best_Score() {
+    if(score > best_score) {
+        best_score = score
+    }
 }
