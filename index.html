@@ -6,26 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake game</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="app.js" defer></script> -->
-    <script src="game.js" defer></script>
-    <script src="load.js" defer></script>
+    <script type="module" src="game.js" defer></script>
+    <script type="module" src="load.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+    <!-- menu container -->
+    <div class="menu-container">
+        <div class="logo menu-logo">sn<span>A</span>ke</div>
+        <div class="speed">
+            <div>
+                <input type="radio" name="speed" id="slow" class = "radio slow">
+                <label for="slow"> Slow </label><br>
+            </div>
+            <div>
+                <input type="radio" name="speed" id="normal" class = "radio normal" checked>
+                <label for="speed"> Normal </label><br> 
+            </div>
+            <div>
+                <input type="radio" name="speed" id="fast" class = "radio fast">
+                <label for="fast"> Fast </label><br> 
+            </div>
+        </div>
+        <button class="play-btn">Play</button>
+    </div>
+
+    <!-- game console -->
     <div class="logo">sn<span>A</span>ke</div>
     <div class="scores"> 
         <p>Score: <span id="score">0</span></p> 
         <p>Best: <span id="best-score">0</span></p> 
     </div>
-    <!-- <div class="container">
-        <div class="snake"></div>
-        <div class="apple"></div>
-    </div> -->
     <canvas id="canvas" class="game_canvas" width="500px" height="500px"></canvas>
+
+    <!-- gameOver modal -->
     <div class="gameOver">
         <div class="modal">
             <p> Wanna play again? </p>
-            <div class="btns">
-                <button class="btn menu">&#10006;</button>
                 <button class="btn replay">&#10227;</button>
             </div>
         </div>

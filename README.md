@@ -1,5 +1,6 @@
 # snake-game
 # HTML canvas
 # JS animation
+#jquery
 
-Project still on progress...
+A simple 2D snake game mostly based on HTML canvas. 

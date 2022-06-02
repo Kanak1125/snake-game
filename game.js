@@ -1,8 +1,8 @@
+import { speed } from "./load.js"
 const activate_modal = document.querySelector('.gameOver')
 const boardColor = "#111"
 const boardBorder = "white"
 const snakeColor = "lightgreen"
-const snake_HeadColor = "lawngreen"
 const snakeBorder = "green"
 const foodColor = "lightcoral"
 const gameCanvas = document.querySelector('#canvas')
@@ -15,23 +15,27 @@ let snake = [{x: 250, y: 250},
              {x: 220, y: 250},
              {x: 210, y: 250}
             ]    // the co-ordinates for snake body...
-let food_x;
+            
+//co-ordinates for food...
+let food_x;  
 let food_y;
 
 let score = 0
-let best_score = JSON.parse(localStorage.getItem("all_time_best"))
+let best_score = JSON.parse(localStorage.getItem("all_time_best")) //best_score to be stored in localStorage
 
 const currentScore = document.getElementById('score')
 const bestScore = document.getElementById('best-score')
 bestScore.textContent = best_score
-main()
-generateFood()
 
-function main() {
-    drawBoard()
-    moveSnake()
-    drawSnake()
-}
+// for menu modal container
+const menuContainer = document.querySelector('.menu-container')
+const playBtn = document.querySelector('.play-btn');
+playBtn.addEventListener('click', () => {
+    menuContainer.style.display = 'none'
+    moveSnake();
+}) 
+
+generateFood()
 
 // to draw snake board using canvas
 function drawBoard() {
@@ -53,7 +57,6 @@ function drawSnakePart(snakePart) {
     canvasCtxt.strokeStyle = snakeBorder    //border-color assigned to the body parts of a snake
     canvasCtxt.strokeRect(snakePart.x, snakePart.y, 10, 10)     //draws a border around the snake body part
 }
-
 
 //event listener
 document.addEventListener('keydown', (event) => {
@@ -81,27 +84,7 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
-// a function to move a snake
-// function moveSnake() {
-//     drawBoard();
-//     snake.forEach((part) => {
-//         part.x += dx;
-//         drawSnakePart(part);
-//     }) 
-   
-//     setTimeout(moveSnake, 500)
-// }
-// moveSnake()
-
-// function moveVertical() {
-//     drawBoard()
-//     snake[0].x += dx
-//     snake[0].y += dy;
-//     drawSnakePart()
-//     setTimeout(moveVertical, 1000)
-// }
-// moveVertical()
-
+//function to move a snake which calls itself after every 'speed'(milliseconds) set by the user
 function moveSnake() {
     if(score > best_score) {
         best_score = score
@@ -123,10 +106,9 @@ function moveSnake() {
     drawSnake()
     drawFood()
     
-    setTimeout(moveSnake, 45)      // calls moveSnake again
+    setTimeout(moveSnake, speed)      // calls moveSnake again
     gameOver(head)
 }
-
 
 // conditions to end the game...
 function gameOver(head) {

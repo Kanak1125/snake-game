@@ -7,7 +7,6 @@
     box-sizing: border-box;
     user-select: none;
 }
-
 body {
     background: #222;
     color: white;
@@ -16,6 +15,43 @@ body {
     align-items: center;
     height: 100vh;
     justify-content: space-around;
+}
+.menu-container {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    background-color: #222;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 6.5rem;
+    padding: 100px 0px;
+}
+.speed {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    justify-content: center;
+    column-gap: 3.5rem;
+}
+input {
+    cursor: pointer;
+}
+.play-btn {
+    width: 180px;
+    height: 50px;
+    background: lightgreen;
+    border: none;
+    color: #222;
+    border-radius: 200px;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+}
+.play-btn:hover {
+    color: whitesmoke;
+    background: lightcoral;
 }
 .logo {
    align-self: flex-start;
@@ -28,6 +64,10 @@ body {
 .logo span {
     color: lightcoral;
 }
+.menu-logo {
+    margin: auto;
+    font-size: 5.5rem;
+}
 .scores {
     display: flex;
     width: 20vw;
@@ -35,19 +75,6 @@ body {
     font-size: 1.25rem;
     font-weight: bold;
 }
-/* .container {
-    width: 55vw;
-    height: 80vh;
-    border: 3px solid white;
-    //background-image: url("img/jake-nackos-C2PCa6DhlYE-unsplash.jpg"); 
-    background-size: contain; //
-    background: #333;
-} */
-
-/* .game_canvas {
-    border: 1px solid white;
-} */
-
 .snake {
     position: relative;
     width: 10px;
@@ -80,10 +107,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-}
-.btns {
-    display: flex;
-    gap: 5rem;
 }
 .btn {
     font-size: 2.5rem;
