@@ -139,7 +139,6 @@ function generateFood() {
         const food_eaten = (body_part.x == food_x && body_part.y == food_y)
         if(food_eaten === true) {
             generateFood()
-            console.log("food eaten")
         }
      })
 }
